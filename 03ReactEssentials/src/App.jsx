@@ -1,21 +1,6 @@
-import { CORE_CONCEPTS } from "./data";
 import Header from "./components/Header";
-
-function CoreConcepts() {
-  return CORE_CONCEPTS.map((concept) => (
-    <CoreConcept concept={concept} key={concept.title} />
-  ));
-}
-
-function CoreConcept({ concept }) {
-  return (
-    <li>
-      <img src={concept.image} alt={concept.title} />
-      <h3>{concept.title}</h3>
-      <p>{concept.description}</p>
-    </li>
-  );
-}
+import CoreConcepts from "./components/CoreConcepts";
+import TabButton from "./components/TabButton";
 
 function App() {
   return (
@@ -27,6 +12,16 @@ function App() {
           <ul>
             <CoreConcepts />
           </ul>
+        </section>
+
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton>Components</TabButton>
+            <TabButton>JSX</TabButton>
+            <TabButton>Props</TabButton>
+            <TabButton>State</TabButton>
+          </menu>
         </section>
       </main>
     </div>
