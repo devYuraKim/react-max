@@ -5,8 +5,10 @@ import { useState } from "react";
 
 function App() {
   const [tabContent, setTabContent] = useState("Please click a button");
+
   function handleClick(input) {
     setTabContent(input);
+    console.log(tabContent);
   }
 
   return (
