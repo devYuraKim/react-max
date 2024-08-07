@@ -5,10 +5,10 @@ import { useState } from "react";
 import { EXAMPLES } from "./data";
 
 function App() {
-  const [tabContent, setTabContent] = useState("Please click a button");
+  const [tabContent, setTabContent] = useState("components");
 
   function handleClick(input) {
-    setTabContent(EXAMPLES[input].description);
+    setTabContent(input.toLowerCase());
 
     // == resolve setState lagging problem by directly capturing value
     // const newTabContent = input;
@@ -30,12 +30,18 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onClick={handleClick}>components</TabButton>
-            <TabButton onClick={handleClick}>jsx</TabButton>
-            <TabButton onClick={handleClick}>props</TabButton>
-            <TabButton onClick={handleClick}>state</TabButton>
+            <TabButton onClick={handleClick}>Components</TabButton>
+            <TabButton onClick={handleClick}>JSX</TabButton>
+            <TabButton onClick={handleClick}>Props</TabButton>
+            <TabButton onClick={handleClick}>State</TabButton>
           </menu>
-          {tabContent}
+          <div id="tab-content">
+            <h3>{EXAMPLES[tabContent].title}</h3>
+            <p>{EXAMPLES[tabContent].description}</p>
+            <pre>
+              <code>{EXAMPLES[tabContent].code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
