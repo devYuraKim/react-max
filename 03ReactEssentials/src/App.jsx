@@ -8,7 +8,12 @@ function App() {
 
   function handleClick(input) {
     setTabContent(input);
-    console.log(tabContent);
+    console.log(input);
+
+    // == resolve setState lagging problem by directly capturing value
+    // const newTabContent = input;
+    // setTabContent(newTabContent);
+    // console.log(input);
   }
 
   return (
