@@ -1,7 +1,12 @@
-export default function TabButton({ children, onClick }) {
+export default function TabButton({ children, onClick, buttonClicked }) {
   return (
     <li>
-      <button onClick={() => onClick(children)}>{children}</button>
+      <button
+        className={buttonClicked ? "active" : ""}
+        onClick={() => onClick(children.toLowerCase())}
+      >
+        {children}
+      </button>
     </li>
   );
 }

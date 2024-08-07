@@ -8,7 +8,7 @@ function App() {
   const [tabContent, setTabContent] = useState("");
 
   function handleClick(input) {
-    setTabContent(input.toLowerCase());
+    setTabContent(input);
 
     // == resolve setState lagging problem by directly capturing value
     // const newTabContent = input;
@@ -30,10 +30,30 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onClick={handleClick}>Components</TabButton>
-            <TabButton onClick={handleClick}>JSX</TabButton>
-            <TabButton onClick={handleClick}>Props</TabButton>
-            <TabButton onClick={handleClick}>State</TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "components"}
+            >
+              Components
+            </TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "jsx"}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "props"}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "state"}
+            >
+              State
+            </TabButton>
           </menu>
           <div id="tab-content">
             {!tabContent ? (
