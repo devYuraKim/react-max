@@ -5,7 +5,7 @@ import { useState } from "react";
 import { EXAMPLES } from "./data";
 
 function App() {
-  const [tabContent, setTabContent] = useState("components");
+  const [tabContent, setTabContent] = useState("");
 
   function handleClick(input) {
     setTabContent(input.toLowerCase());
@@ -36,11 +36,17 @@ function App() {
             <TabButton onClick={handleClick}>State</TabButton>
           </menu>
           <div id="tab-content">
-            <h3>{EXAMPLES[tabContent].title}</h3>
-            <p>{EXAMPLES[tabContent].description}</p>
-            <pre>
-              <code>{EXAMPLES[tabContent].code}</code>
-            </pre>
+            {!tabContent ? (
+              <p>Please select a topic</p>
+            ) : (
+              <>
+                <h3>{EXAMPLES[tabContent].title}</h3>
+                <p>{EXAMPLES[tabContent].description}</p>
+                <pre>
+                  <code>{EXAMPLES[tabContent].code}</code>
+                </pre>
+              </>
+            )}
           </div>
         </section>
       </main>
