@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EXAMPLES } from "../data";
 import TabButton from "./TabButton";
+import Section from "./Section";
 
 export default function Examples() {
   const [tabContent, setTabContent] = useState("");
@@ -14,8 +15,7 @@ export default function Examples() {
     // console.log(input);
   }
   return (
-    <section id="examples">
-      <h2>Examples</h2>
+    <Section id="examples" title="Examples">
       <menu>
         <TabButton
           onClick={handleClick}
@@ -46,6 +46,6 @@ export default function Examples() {
           </>
         )}
       </div>
-    </section>
+    </Section>
   );
 }
