@@ -2,6 +2,7 @@ import { useState } from "react";
 import { EXAMPLES } from "../data";
 import TabButton from "./TabButton";
 import Section from "./Section";
+import Tabs from "./Tabs";
 
 export default function Examples() {
   const [tabContent, setTabContent] = useState("");
@@ -16,36 +17,51 @@ export default function Examples() {
   }
   return (
     <Section id="examples" title="Examples">
-      <menu>
-        <TabButton
-          onClick={handleClick}
-          buttonClicked={tabContent === "components"}
-        >
-          Components
-        </TabButton>
-        <TabButton onClick={handleClick} buttonClicked={tabContent === "jsx"}>
-          JSX
-        </TabButton>
-        <TabButton onClick={handleClick} buttonClicked={tabContent === "props"}>
-          Props
-        </TabButton>
-        <TabButton onClick={handleClick} buttonClicked={tabContent === "state"}>
-          State
-        </TabButton>
-      </menu>
-      <div id="tab-content">
-        {!tabContent ? (
-          <p>Please select a topic</p>
-        ) : (
+      <Tabs
+        buttons={
           <>
-            <h3>{EXAMPLES[tabContent].title}</h3>
-            <p>{EXAMPLES[tabContent].description}</p>
-            <pre>
-              <code>{EXAMPLES[tabContent].code}</code>
-            </pre>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "components"}
+            >
+              Components
+            </TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "jsx"}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "props"}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              onClick={handleClick}
+              buttonClicked={tabContent === "state"}
+            >
+              State
+            </TabButton>
           </>
-        )}
-      </div>
+        }
+      >
+        <div id="tab-content">
+          {!tabContent ? (
+            <p>Please select a topic</p>
+          ) : (
+            <>
+              <h3>{EXAMPLES[tabContent].title}</h3>
+              <p>{EXAMPLES[tabContent].description}</p>
+              <pre>
+                <code>{EXAMPLES[tabContent].code}</code>
+              </pre>
+            </>
+          )}
+        </div>
+      </Tabs>
+      <menu></menu>
     </Section>
   );
 }
