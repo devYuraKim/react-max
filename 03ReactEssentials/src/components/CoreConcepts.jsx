@@ -2,16 +2,16 @@ import { CORE_CONCEPTS } from "../data";
 
 export default function CoreConcepts() {
   return CORE_CONCEPTS.map((concept) => (
-    <CoreConcept concept={concept} key={concept.title} />
+    <CoreConcept {...concept} key={concept.title} />
   ));
 }
 
-function CoreConcept({ concept }) {
+function CoreConcept({ image, title, description }) {
   return (
     <li>
-      <img src={concept.image} alt={concept.title} />
-      <h3>{concept.title}</h3>
-      <p>{concept.description}</p>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
     </li>
   );
 }
