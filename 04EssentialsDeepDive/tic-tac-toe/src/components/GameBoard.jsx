@@ -6,26 +6,40 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
+export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
-  function handleSelectSquare(rowIndex, colIndex, playerSymbol) {
-    //not recommended > direct state mutation
+  function handleSelectSquare(rowIndex, colIndex) {
+    //recommended > updating in a immutable way (objects, arrays)
     setGameBoard((prevGameBoard) => {
-      prevGameBoard[rowIndex][colIndex] = "X";
-      return prevGameBoard;
+      const updatedBoard = [
+        ...prevGameBoard.map((innerArray) => [...innerArray]),
+      ];
+      updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+      return updatedBoard;
     });
-    console.log(gameBoard);
+
+    onSelectSquare();
+
+    //not recommended > direct state mutation
+    // setGameBoard((prevGameBoard) => {
+    //   prevGameBoard[rowIndex][colIndex] = playerSymbol;
+    //   return prevGameBoard;
+    // });
   }
 
   return (
     <ol id="game-board">
-      {initialGameBoard.map((row, rowIndex) => (
+      {gameBoard.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleSelectSquare(rowIndex, colIndex)}>
+                <button
+                  onClick={() =>
+                    handleSelectSquare(rowIndex, colIndex, playerSymbol)
+                  }
+                >
                   {playerSymbol}
                 </button>
               </li>
