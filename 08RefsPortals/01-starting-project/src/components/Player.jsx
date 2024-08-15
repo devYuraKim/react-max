@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+useRef;
 export default function Player() {
   const [name, setName] = useState(null);
   const [submitted, setSubmitted] = useState(false);
