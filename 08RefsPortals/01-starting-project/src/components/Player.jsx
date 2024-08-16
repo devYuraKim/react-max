@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
 
 export default function Player() {
-  const [name, setName] = useState(null);
+  const [name, setName] = useState(undefined);
   const playerName = useRef();
 
   const filePicker = useRef();
-  const [fileName, setFileName] = useState(null);
+  const [fileName, setFileName] = useState("");
 
   function handleClick() {
     setName(playerName.current.value);
