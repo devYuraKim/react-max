@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function TimerChallenge({ title, targetTime }) {
   const [timerExpired, setTimerExpired] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
-  let timer;
+  const timer = useRef();
+  //ref object returned by useRef has a property called current that holds the mutable value
 
   function handleStart() {
-    timer = setTimeout(() => {
+    timer.current = setTimeout(() => {
       setTimerExpired(true);
     }, targetTime * 1000);
     setTimerStarted(true);
   }
 
   function handleStop() {
-    clearTimeout(timer);
+    clearTimeout(timer.current);
   }
 
   return (
