@@ -4,16 +4,17 @@ function TimerChallenge({ title, targetTime }) {
   const [timerExpired, setTimerExpired] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
+  let timer;
+
   function handleStart() {
-    setTimerStarted(true);
-    setTimeout(() => {
+    timer = setTimeout(() => {
       setTimerExpired(true);
-      setTimerStarted(false);
     }, targetTime * 1000);
+    setTimerStarted(true);
   }
 
   function handleStop() {
-    setTimerStarted(false);
+    clearTimeout(timer);
   }
 
   return (
@@ -24,7 +25,7 @@ function TimerChallenge({ title, targetTime }) {
         {targetTime} second{targetTime > 1 ? "s" : ""}
       </p>
       <p>
-        <button onClick={handleStart}>
+        <button onClick={timerStarted ? handleStop : handleStart}>
           {timerStarted ? "Stop" : "Start"} Challenge
         </button>
       </p>
