@@ -15,9 +15,14 @@ const ResultModal = forwardRef(function ResultModal(
       },
     };
   });
+
+  const score = Math.round((1 - timeRemaining / (targetTime * 1000)) * 100);
+
   return (
-    <dialog ref={dialog} className="result-modal">
+    //onReset은 ESC 키로 modal 닫았을 때도 button click과 같은 효과를 내기 위함
+    <dialog ref={dialog} className="result-modal" onClose={onReset}>
       <h2>You {timeRemaining > 0 ? "win" : "lost"}</h2>
+      {timeRemaining > 0 && <h2>Score: {score}</h2>}
       <p>
         The target time was <strong>{targetTime} seconds.</strong>
       </p>
