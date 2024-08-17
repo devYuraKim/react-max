@@ -2,50 +2,47 @@ import { useState, useRef } from "react";
 import ResultModal from "./ResultModal";
 
 function TimerChallenge({ title, targetTime }) {
-  const [timerExpired, setTimerExpired] = useState(false);
-  const [timerStarted, setTimerStarted] = useState(false);
-
   const timer = useRef();
   const dialog = useRef();
 
-  //ref object returned by useRef has a property called current that holds the mutable value
+  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
+  const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
 
-  function handleStart() {
-    timer.current = setTimeout(() => {
-      setTimerExpired(true);
-      dialog.current.open();
-      /*showModal()은 input element에 특정적이기에 해당 element가 바뀌면 해당 함수를 사용 불가해진다. 
-      그런데 이걸 매번 확인할 수는 없잖아...?
-      그래서 useImperativeHook에서 새롭게 정의해버림 '추상화'처럼*/
-      //dialog.current.showModal();
-      // showModal()은 input element의 자체 function인데, ref가 하는 일이 이런 요소에 접근 가능하도록 하는 것임
-    }, targetTime * 1000);
-    setTimerStarted(true);
+  //losing case
+  if (timeRemaining <= 0) {
+    clearInterval(timer.current);
+    setTimeRemaining(targetTime * 1000);
+    dialog.current.open();
   }
 
+  function handleStart() {
+    //ref를 사용해서 render 없이 값의 변화를 추적해야 함, 따라서 state 말고
+    timer.current = setInterval(() => {
+      setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 10);
+    }, 10);
+  }
+
+  //winning case
   function handleStop() {
-    clearTimeout(timer.current);
+    clearInterval(timer.current);
+    dialog.current.open();
   }
 
   return (
     <>
-      <ResultModal
-        ref={dialog}
-        targetTime={targetTime}
-        result={timerExpired ? "lose" : "win"}
-      />
+      <ResultModal ref={dialog} targetTime={targetTime} result="hey" />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
         <p>
-          <button onClick={timerStarted ? handleStop : handleStart}>
-            {timerStarted ? "Stop" : "Start"} Challenge
+          <button onClick={timerIsActive ? handleStop : handleStart}>
+            {timerIsActive ? "Stop" : "Start"} Challenge
           </button>
         </p>
-        <p className={timerStarted ? "active" : ""}>
-          Timer {timerStarted ? "running" : "inactive"}
+        <p className={timerIsActive ? "active" : ""}>
+          Timer {timerIsActive ? "running" : "inactive"}
         </p>
       </section>
     </>
