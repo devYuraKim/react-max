@@ -15,6 +15,7 @@ function TimerChallenge({ title, targetTime }) {
       setTimerExpired(true);
       console.log(dialog.current);
       dialog.current.showModal();
+      // showModal()은 input element의 자체 function인데, ref가 하는 일이 이런 요소에 접근 가능하도록 하는 것임
     }, targetTime * 1000);
     setTimerStarted(true);
   }
