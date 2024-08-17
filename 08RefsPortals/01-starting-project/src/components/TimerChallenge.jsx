@@ -13,8 +13,11 @@ function TimerChallenge({ title, targetTime }) {
   function handleStart() {
     timer.current = setTimeout(() => {
       setTimerExpired(true);
-      console.log(dialog.current);
-      dialog.current.showModal();
+      dialog.current.open();
+      /*showModal()은 input element에 특정적이기에 해당 element가 바뀌면 해당 함수를 사용 불가해진다. 
+      그런데 이걸 매번 확인할 수는 없잖아...?
+      그래서 useImperativeHook에서 새롭게 정의해버림 '추상화'처럼*/
+      //dialog.current.showModal();
       // showModal()은 input element의 자체 function인데, ref가 하는 일이 이런 요소에 접근 가능하도록 하는 것임
     }, targetTime * 1000);
     setTimerStarted(true);
