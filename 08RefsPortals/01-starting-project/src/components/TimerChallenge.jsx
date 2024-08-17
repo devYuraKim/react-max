@@ -6,11 +6,15 @@ function TimerChallenge({ title, targetTime }) {
   const [timerStarted, setTimerStarted] = useState(false);
 
   const timer = useRef();
+  const dialog = useRef();
+
   //ref object returned by useRef has a property called current that holds the mutable value
 
   function handleStart() {
     timer.current = setTimeout(() => {
       setTimerExpired(true);
+      console.log(dialog.current);
+      dialog.current.showModal();
     }, targetTime * 1000);
     setTimerStarted(true);
   }
@@ -21,12 +25,11 @@ function TimerChallenge({ title, targetTime }) {
 
   return (
     <>
-      {timerExpired && (
-        <ResultModal
-          targetTime={targetTime}
-          result={timerExpired ? "lose" : "win"}
-        />
-      )}
+      <ResultModal
+        ref={dialog}
+        targetTime={targetTime}
+        result={timerExpired ? "lose" : "win"}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
